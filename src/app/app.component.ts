@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { map, tap } from 'rxjs/operators';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { AppState } from './reducers';
+import { isLoggedIn, isLoggedOut } from './auth/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -26,14 +27,14 @@ export class AppComponent implements OnInit {
 
     // if user undefined, then return true
     this.isLoggedOut$ = this.store.pipe(
-      tap(state => console.log("Current User: ", state["auth"].user)),
-      map(state => !state["auth"].user)
+      // select prevents duplicate values reaching the view
+      select(isLoggedOut)
     );
 
     // if user undefined, return false
     this.isLoggedIn$ = this.store.pipe(
       tap(state => console.log("Current User: ", state["auth"].user)),
-      map(state => !!state["auth"].user) // DOUBLE BANG!!
+      select(isLoggedIn)
     );
 
     this.router.events.subscribe(event => {
