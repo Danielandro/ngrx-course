@@ -26,6 +26,13 @@ export class AppComponent implements OnInit {
     // show whole state tree
     // this.store.subscribe(state => console.log("Store value: ", state));
 
+    const userProfile = localStorage.getItem("user"); // retrieve user from localstorage
+
+    // if user exists, log in with their credentials
+    if (userProfile) {
+      this.store.dispatch(AuthActions.login({ user: JSON.parse(userProfile) }));
+    }
+
     // if user undefined, then return true
     this.isLoggedOut$ = this.store.pipe(
       // select prevents duplicate values reaching the view
