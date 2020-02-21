@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AuthActions } from "./action-types";
 import { tap } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Injectable()
 
@@ -20,8 +21,17 @@ export class AuthEffects {
   },
     { dispatch: false }); // this side effect does not result in dispatching of an action
 
+  logout$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(AuthActions.logout),
+      tap(action => {
+        localStorage.removeItem("user");
+        this.router.navigateByUrl("/login");
+      }));
+  }, { dispatch: false });
+
   // Actions is an effects service that emits an observable when an action occurs
-  constructor(private action$: Actions) {
+  constructor(private action$: Actions, private router: Router) {
     // Actions is an observable stream of all Actions that are dispatched
 
   }

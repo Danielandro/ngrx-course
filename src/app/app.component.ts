@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.store.dispatch(AuthActions.logout());
-    this.router.navigateByUrl("/login");
+    // this.router.navigateByUrl("/login"); -> should be in sideEffect
   }
 
 }
