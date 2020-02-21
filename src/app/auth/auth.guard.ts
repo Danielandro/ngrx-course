@@ -24,7 +24,6 @@ export class AuthGuard implements CanActivate {
       // use tap for side effects. In this case, redirect user to login page
       tap(loggedIn => {
         // if not logged in redirect to login page else return true
-        console.log("Auth guard");
         if (!loggedIn) {
           this.router.navigateByUrl("/login");
         }

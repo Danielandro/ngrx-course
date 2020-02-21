@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
 
     // if user undefined, return false
     this.isLoggedIn$ = this.store.pipe(
-      tap(state => console.log("Current User: ", state["auth"].user)),
       select(isLoggedIn)
     );
 
