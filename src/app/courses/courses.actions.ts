@@ -4,7 +4,7 @@ import { Course } from "./model/course";
 // dispatched by route resolver before courses page loads
 // passes the url for the courses API
 export const loadAllCourses = createAction(
-  "[Courses Resolver]"
+  "[Courses Resolver] Load all courses"
 );
 
 // dispatched by the course effect, which makes the api request to get all courses
@@ -12,6 +12,6 @@ export const loadAllCourses = createAction(
 // the resolver will then return new state using this data
 // the component can then retrieve course from state on init
 export const allCoursesLoaded = createAction(
-  "[Courses Effect]",
+  "[Load Courses Effect] All courses loaded",
   props<{ courses: Course[]; }>()
 );
