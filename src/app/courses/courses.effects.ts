@@ -14,6 +14,7 @@ export class CoursesEffects {
     ofType(CourseActions.loadAllCourses),
     concatMap(() => this.coursesHttpService.findAllCourses()),
     map(courses => CourseActions.allCoursesLoaded({ courses }))
+
   )
   );
 

@@ -33,3 +33,9 @@ export const selectPromoTotal = createSelector(
   selectAllCourses,
   courses => courses.filter(course => course.promo).length
 );
+
+// select allCoursesLoaded flag from state
+export const areCoursesLoaded = createSelector(
+  selectCoursesState,
+  state => state.allCoursesLoaded
+);
