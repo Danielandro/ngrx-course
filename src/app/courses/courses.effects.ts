@@ -18,6 +18,17 @@ export class CoursesEffects {
   )
   );
 
+  saveCourse$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(CourseActions.courseUpdated),
+      // save course update to backend
+      // by using concatMap, we make sure saves are completed sequentially
+      // another request won't begin until the previous has completed
+      concatMap((action) => this.coursesHttpService.saveCourse(action.update.id, action.update.changes))
+    ),
+    { dispatch: false }
+  );
+
   constructor(
     private actions$: Actions,
     private coursesHttpService: CoursesHttpService) { }
