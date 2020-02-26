@@ -67,7 +67,9 @@ To run the frontend part of our code, we will use the Angular CLI:
 
 The application is visible at port 4200: [http://localhost:4200](http://localhost:4200)
 
+NOTE: To run both the dev backend & UI server's use:
 
+    npm run startAll
 
 # Important 
 

@@ -19,6 +19,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { environment } from '../environments/environment';
+import { AuthState } from './auth/store/auth.state';
 
 
 const routes: Routes = [
@@ -50,7 +52,7 @@ const routes: Routes = [
     MatListModule,
     MatToolbarModule,
     AuthModule.forRoot(),
-    NgxsModule.forRoot([]),
+    NgxsModule.forRoot([], { developmentMode: !environment.production }),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot()
   ],

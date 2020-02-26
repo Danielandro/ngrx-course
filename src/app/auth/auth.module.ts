@@ -7,6 +7,8 @@ import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { AuthService } from "./auth.service";
+import { AuthState } from './store/auth.state';
+import { NgxsModule } from "@ngxs/store";
 
 @NgModule({
   imports: [
@@ -16,7 +18,7 @@ import { AuthService } from "./auth.service";
     MatInputModule,
     MatButtonModule,
     RouterModule.forChild([{ path: '', component: LoginComponent }]),
-
+    NgxsModule.forFeature([AuthState])
   ],
   declarations: [LoginComponent],
   exports: [LoginComponent]

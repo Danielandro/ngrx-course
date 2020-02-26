@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "startAll": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start\"",
     "start": "ng serve  --proxy-config ./proxy.json",
     "server": "ts-node -P ./server/server.tsconfig.json ./server/server.ts",
     "build": "ng build",
@@ -46,6 +47,7 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
+    "concurrently": "^5.1.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "^4.1.0",
