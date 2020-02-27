@@ -3,6 +3,9 @@ import { Observable } from "rxjs";
 import { map } from 'rxjs/operators';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
+import { Store, Select } from "@ngxs/store";
+import { AuthState } from './auth/store/auth.state';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,6 +14,9 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 export class AppComponent implements OnInit {
 
   loading = true;
+  // use selector to check if user is defined in state
+  @Select(AuthState.isLoggedIn) isLoggedIn$: Observable<boolean>;
+  @Select(AuthState.isLoggedOut) isLoggedOut$: Observable<boolean>;
 
   constructor(private router: Router) {
 

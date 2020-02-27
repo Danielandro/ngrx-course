@@ -5,7 +5,7 @@ import { Store } from "@ngxs/store";
 
 import { AuthService } from "../auth.service";
 import { tap } from "rxjs/operators";
-import { noop } from "rxjs";
+import { noop, Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { Login } from '../store/auth.actions';
 

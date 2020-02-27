@@ -1,4 +1,4 @@
-import { State, Action, StateContext } from "@ngxs/store";
+import { State, Action, StateContext, Selector } from "@ngxs/store";
 import { User } from "../model/user.model";
 import { Injectable } from "@angular/core";
 import { Login, Logout } from "./auth.actions";
@@ -17,6 +17,16 @@ export class AuthStateModel {
 @Injectable()
 
 export class AuthState {
+  @Selector()
+  static isLoggedIn(state: AuthStateModel) {
+    return !!state.user;
+  }
+
+  @Selector()
+  static isLoggedOut(state: AuthStateModel) {
+    return !state.user;
+  }
+
   @Action(Login)
   login({ getState, patchState }: StateContext<AuthStateModel>, { payload }: Login) {
     const state = getState();
