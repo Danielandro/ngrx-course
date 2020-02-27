@@ -21,15 +21,9 @@ import { NgxsModule } from "@ngxs/store";
     NgxsModule.forFeature([AuthState])
   ],
   declarations: [LoginComponent],
-  exports: [LoginComponent]
+  exports: [LoginComponent],
+  providers: [
+    AuthService
+  ]
 })
-export class AuthModule {
-  static forRoot(): ModuleWithProviders<AuthModule> {
-    return {
-      ngModule: AuthModule,
-      providers: [
-        AuthService
-      ]
-    };
-  }
-}
+export class AuthModule { }
