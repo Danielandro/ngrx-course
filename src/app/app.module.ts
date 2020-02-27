@@ -5,6 +5,7 @@ import { NgxsModule } from "@ngxs/store";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsRouterPluginModule } from "@ngxs/router-plugin";
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -59,7 +60,8 @@ const routes: Routes = [
     NgxsModule.forRoot([], { developmentMode: !environment.production }),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsStoragePluginModule.forRoot({ key: ["auth"] })
+    NgxsStoragePluginModule.forRoot({ key: ["auth"] }),
+    NgxsRouterPluginModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
