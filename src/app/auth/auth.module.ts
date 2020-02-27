@@ -22,8 +22,6 @@ import { NgxsModule } from "@ngxs/store";
   ],
   declarations: [LoginComponent],
   exports: [LoginComponent],
-  providers: [
-    AuthService
-  ]
+  providers: [AuthService]
 })
 export class AuthModule { }

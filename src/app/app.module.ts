@@ -21,12 +21,14 @@ import { AuthModule } from './auth/auth.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { environment } from '../environments/environment';
 import { AuthState } from './auth/store/auth.state';
+import { AuthGuard } from './auth/services/auth.guard';
 
 
 const routes: Routes = [
   {
     path: 'courses',
-    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule)
+    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
