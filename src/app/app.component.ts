@@ -5,6 +5,7 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 
 import { Store, Select } from "@ngxs/store";
 import { AuthState } from './auth/store/auth.state';
+import { Logout } from './auth/store/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
   @Select(AuthState.isLoggedIn) isLoggedIn$: Observable<boolean>;
   @Select(AuthState.isLoggedOut) isLoggedOut$: Observable<boolean>;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private store: Store) {
 
   }
 
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-
+    this.store.dispatch(new Logout());
   }
 
 }

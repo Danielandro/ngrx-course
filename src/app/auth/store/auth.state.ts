@@ -35,4 +35,13 @@ export class AuthState {
       user: payload
     });
   }
+
+  @Action(Logout)
+  logout({ getState, patchState }: StateContext<AuthStateModel>) {
+    const state = getState();
+
+    patchState({
+      user: undefined
+    });
+  }
 }
