@@ -1,23 +1,25 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { Store, Select } from "@ngxs/store";
 
 import { AuthService } from "../auth.service";
-import { tap, switchMap } from "rxjs/operators";
-import { noop, Observable } from "rxjs";
+import { tap, switchMap, takeUntil } from "rxjs/operators";
+import { noop, Observable, Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { Login } from '../store/auth.actions';
 import { AuthState } from '../store/auth.state';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
+  private unsubscribe$ = new Subject<void>();
   @Select(AuthState.loginErrorMessage) loginError$: Observable<any>;
 
   constructor(
@@ -37,6 +39,11 @@ export class LoginComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   login() {
     // get form data
     const formData = this.form.value;
@@ -44,6 +51,7 @@ export class LoginComponent implements OnInit {
     // dispatch login credentials
     // the subscribe only fires once the dispatched actions have completed
     this.store.dispatch(new Login(formData.email, formData.password)).pipe(
+      takeUntil(this.unsubscribe$),
       switchMap(() => this.loginError$)).subscribe(
         (loginError) => {
           if (loginError) {
