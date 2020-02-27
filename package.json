@@ -26,6 +26,7 @@
     "@angular/platform-browser": "^9.0.1",
     "@angular/platform-browser-dynamic": "^9.0.1",
     "@angular/router": "^9.0.1",
+    "@ngxs/storage-plugin": "^3.6.2",
     "@ngxs/store": "^3.6.2",
     "body-parser": "^1.18.2",
     "core-js": "^2.4.1",

@@ -5,7 +5,7 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 
 import { Store, Select } from "@ngxs/store";
 import { AuthState } from './auth/store/auth.state';
-import { Logout } from './auth/store/auth.actions';
+import { Logout, Login } from './auth/store/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -13,11 +13,12 @@ import { Logout } from './auth/store/auth.actions';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
+  loading = true;
+  private unsubscribe$ = new Subject<void>(); // use to complete subscriptions
+
   // use selector to check if user is defined in state
   @Select(AuthState.isLoggedIn) isLoggedIn$: Observable<boolean>;
   @Select(AuthState.isLoggedOut) isLoggedOut$: Observable<boolean>;
-  loading = true;
-  private unsubscribe$ = new Subject<void>(); // use to complete subscriptions
 
   constructor(private router: Router, private store: Store) {
 

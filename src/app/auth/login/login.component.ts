@@ -9,7 +9,7 @@ import { noop, Observable, Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { Login } from '../store/auth.actions';
 import { AuthState } from '../store/auth.state';
-import { runInThisContext } from 'vm';
+
 
 @Component({
   selector: 'login',
@@ -50,9 +50,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     // dispatch login credentials
     // the subscribe only fires once the dispatched actions have completed
-    this.store.dispatch(new Login(formData.email, formData.password)).pipe(
-      takeUntil(this.unsubscribe$),
-      switchMap(() => this.loginError$)).subscribe(
+    this.store.dispatch(new Login(formData.email, formData.password))
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        switchMap(() => this.loginError$)
+      )
+      .subscribe(
         (loginError) => {
           if (loginError) {
             console.log("Error: ", loginError);

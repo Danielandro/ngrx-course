@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+// NGXS Modules
 import { NgxsModule } from "@ngxs/store";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { environment } from '../environments/environment';
 import { AuthState } from './auth/store/auth.state';
 import { AuthGuard } from './auth/services/auth.guard';
+
 
 
 const routes: Routes = [
@@ -56,7 +58,8 @@ const routes: Routes = [
     AuthModule,
     NgxsModule.forRoot([], { developmentMode: !environment.production }),
     NgxsLoggerPluginModule.forRoot(),
-    NgxsReduxDevtoolsPluginModule.forRoot()
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsStoragePluginModule.forRoot({ key: ["auth"] })
   ],
   bootstrap: [AppComponent]
 })
