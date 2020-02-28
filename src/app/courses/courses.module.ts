@@ -21,14 +21,17 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule, Routes } from '@angular/router';
+import { CoursesResolverGuard } from './services/courses-resolver.guard';
+import { NgxsModule } from '@ngxs/store';
+import { CoursesState } from './store/courses.state';
 
 
 
 export const coursesRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent
-
+    component: HomeComponent,
+    resolve: [CoursesResolverGuard]
   },
   {
     path: ':courseUrl',
@@ -55,7 +58,8 @@ export const coursesRoutes: Routes = [
     MatDatepickerModule,
     MatMomentDateModule,
     ReactiveFormsModule,
-    RouterModule.forChild(coursesRoutes)
+    RouterModule.forChild(coursesRoutes),
+    NgxsModule.forFeature([CoursesState])
   ],
   declarations: [
     HomeComponent,
@@ -71,7 +75,8 @@ export const coursesRoutes: Routes = [
   ],
   entryComponents: [EditCourseDialogComponent],
   providers: [
-    CoursesHttpService
+    CoursesHttpService,
+    CoursesResolverGuard
   ]
 })
 export class CoursesModule {

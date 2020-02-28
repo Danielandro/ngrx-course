@@ -58,8 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(
         (loginError) => {
           if (loginError) {
-            console.log("Error: ", loginError);
-            alert("Login unsuccessful");
+            this.logError(loginError);
           } else {
             this.router.navigateByUrl("/courses");
           }
@@ -81,6 +80,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     //     noop, // no operation if successful
     //     () => alert("Login Failed")
     //   );
+  }
+
+  private logError(loginError) {
+    console.log("Error: ", loginError);
+    alert("Login unsuccessful");
   }
 
 }
