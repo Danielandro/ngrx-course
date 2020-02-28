@@ -20,15 +20,40 @@ export interface CoursesStateModel {
 @Injectable()
 export class CoursesState {
   constructor(private coursesHttpService: CoursesHttpService) { }
-
+  // whole state
   @Selector()
   public static getState(state: CoursesStateModel) {
     return state;
   }
 
+  // all courses
+  @Selector([CoursesState.getState])
+  public static SelectCourses(state: CoursesStateModel) {
+    return state.courses;
+  }
+
+  // are courses loaded?
   @Selector()
   public static areCoursesLoaded(state: CoursesStateModel) {
     return state.coursesLoaded;
+  }
+
+  // filter for beginner courses
+  @Selector()
+  public static selectBeginnerCourses(state: CoursesStateModel) {
+    return state.courses.filter(course => course.category === "BEGINNER");
+  }
+
+  // filter for advanced courses∏
+  @Selector()
+  public static selectAdvancedCourses(state: CoursesStateModel) {
+    return state.courses.filter(course => course.category === "ADVANCED");
+  }
+
+  // number of courses on promotion
+  @Selector()
+  public static selectPromoTotal(state: CoursesStateModel) {
+    return state.courses.filter(course => course.promo).length;
   }
 
   // makes API request to get all courses
