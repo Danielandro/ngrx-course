@@ -41,6 +41,8 @@ export class CoursesState {
     );
   }
 
+
+
   // all courses
   @Selector()
   public static SelectCourses(state: CoursesStateModel) {
@@ -68,10 +70,15 @@ export class CoursesState {
   // }
 
   // number of courses on promotion
-  @Selector([CoursesState])
+  @Selector()
   public static selectPromoTotal(state: CoursesStateModel) {
     // return state.courses.filter(course => course.promo).length;
     return selectAll(state).filter(course => course.promo).length;
+  }
+
+  @Selector()
+  public static fetchCoursesErrorMessage(state: CoursesStateModel) {
+    return state.error;
   }
 
   // makes API request to get all courses
@@ -84,9 +91,7 @@ export class CoursesState {
       .pipe(
         // only once courses have loaded, dispatch next action
         // dispatch success action
-        tap(courses => {
-          dispatch(new CoursesActions.FetchCoursesSuccessful(courses));
-        }),
+        map(courses => dispatch(new CoursesActions.FetchCoursesSuccessful(courses))),
         // if error - dispatch load failed action
         catchError(err => dispatch(new CoursesActions.FetchCoursesFailed(err)))
       );
@@ -95,19 +100,22 @@ export class CoursesState {
   @Action(CoursesActions.FetchCoursesSuccessful)
   loadSuccess({ getState, patchState }: StateContext<CoursesStateModel>, { payload }: CoursesActions.FetchCoursesSuccessful) {
     const state = getState();
+    if (payload) {
+      patchState({
+        ...adapter.addAll(payload, state),
+        isLoaded: true
+      });
+      // patchState({
+      //   ...state,
+      //   isLoaded: true
+      // });
+    }
 
-    patchState({
-      ...adapter.addAll(payload, state),
-      isLoaded: true
-    });
-    // patchState({
-    //   ...state,
-    //   isLoaded: true
-    // });
   }
 
   @Action(CoursesActions.FetchCoursesFailed)
   loadFail({ getState, patchState }: StateContext<CoursesStateModel>, { error }: CoursesActions.FetchCoursesFailed) {
+    console.log("ERROR: ", error);
     patchState({
       ...getState(),
       error

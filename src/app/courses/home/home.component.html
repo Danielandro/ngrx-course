@@ -14,7 +14,9 @@
     <p>In Promo: {{promoTotal$ | async}}</p>
   </div>
 
-
+  <div *ngIf="fetchCoursesError$ | async as errorMessage">
+    <p class="error-message">There was an error fetching courses</p>
+  </div>
 
   <mat-tab-group>
 

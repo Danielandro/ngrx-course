@@ -19,6 +19,7 @@ import { CoursesState } from '../store/courses.state';
 export class HomeComponent implements OnInit {
 
   promoTotal$: Observable<number>; // use selector
+  fetchCoursesError$: Observable<any>;
 
   // beginnerCourses$: Observable<Course[]>; // use selector
 
@@ -28,8 +29,9 @@ export class HomeComponent implements OnInit {
 
   // advancedCourses$: Observable<Course[]>; // use selector
 
-  @Select(CoursesState.selectCoursesByCategory("ADAVANCED"))
+  @Select(CoursesState.selectCoursesByCategory("ADVANCED"))
   advancedCourses$: Observable<Course[]>;
+
 
   constructor(
     private dialog: MatDialog,
@@ -46,6 +48,7 @@ export class HomeComponent implements OnInit {
     // this.beginnerCourses$ = this.store.select(CoursesState.selectBeginnerCourses);
     // this.advancedCourses$ = this.store.select(CoursesState.selectAdvancedCourses);
     this.promoTotal$ = this.store.select(CoursesState.selectPromoTotal);
+    this.fetchCoursesError$ = this.store.select(CoursesState.fetchCoursesErrorMessage);
   }
 
   onAddCourse() {
