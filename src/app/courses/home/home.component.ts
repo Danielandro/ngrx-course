@@ -20,10 +20,16 @@ export class HomeComponent implements OnInit {
 
   promoTotal$: Observable<number>; // use selector
 
-  beginnerCourses$: Observable<Course[]>; // use selector
+  // beginnerCourses$: Observable<Course[]>; // use selector
 
-  advancedCourses$: Observable<Course[]>; // use selector
+  // pass in the dynamic selector method & its argument
+  @Select(CoursesState.selectCoursesByCategory("BEGINNER"))
+  beginnerCourses$: Observable<Course[]>;
 
+  // advancedCourses$: Observable<Course[]>; // use selector
+
+  @Select(CoursesState.selectCoursesByCategory("ADAVANCED"))
+  advancedCourses$: Observable<Course[]>;
 
   constructor(
     private dialog: MatDialog,
@@ -37,8 +43,8 @@ export class HomeComponent implements OnInit {
   }
 
   reload() {
-    this.beginnerCourses$ = this.store.select(CoursesState.selectBeginnerCourses);
-    this.advancedCourses$ = this.store.select(CoursesState.selectAdvancedCourses);
+    // this.beginnerCourses$ = this.store.select(CoursesState.selectBeginnerCourses);
+    // this.advancedCourses$ = this.store.select(CoursesState.selectAdvancedCourses);
     this.promoTotal$ = this.store.select(CoursesState.selectPromoTotal);
   }
 
